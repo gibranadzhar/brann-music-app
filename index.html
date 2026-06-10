@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brann Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <!-- Album Art -->
+            <div class="album-art">
+                <img id="albumArt" src="https://via.placeholder.com/300?text=Music+Player" alt="Album Art">
+            </div>
+
+            <!-- Song Info -->
+            <div class="song-info">
+                <h2 id="songTitle">Select a Song</h2>
+                <p id="artistName">Unknown Artist</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <span id="currentTime">0:00</span>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                    <input type="range" id="progressInput" min="0" max="100" value="0">
+                </div>
+                <span id="duration">0:00</span>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="shuffleBtn" class="control-btn" title="Shuffle">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button id="prevBtn" class="control-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button id="playBtn" class="control-btn play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="nextBtn" class="control-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button id="repeatBtn" class="control-btn" title="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+
+            <!-- Volume Control -->
+            <div class="volume-container">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="volumeControl" min="0" max="100" value="70">
+                <i class="fas fa-volume-up"></i>
+            </div>
+
+            <!-- Playlist -->
+            <div class="playlist-section">
+                <h3>Playlist</h3>
+                <div class="playlist" id="playlist"></div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <input type="file" id="fileInput" accept="audio/*" multiple>
+                <button id="uploadBtn" class="upload-btn">
+                    <i class="fas fa-upload"></i> Upload Music
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
