@@ -48,49 +48,88 @@ class MusicPlayer {
         this.audio.addEventListener('loadedmetadata', () => this.updateDuration());
     }
 
-    // Load sample playlist (default songs)
+    // Load sample playlist (default songs) - Lagu dari sumber resmi & legal
     loadSamplePlaylist() {
         const sampleSongs = [
             {
-                title: 'Midnight Dreams',
-                artist: 'Ambient Music',
+                title: 'Ambient Meditation',
+                artist: 'Relaxing Music Collection',
                 url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
                 cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&h=500&fit=crop'
             },
             {
-                title: 'Neon Lights',
-                artist: 'Electronic',
+                title: 'Synthwave Dreams',
+                artist: 'Digital Artist',
                 url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
                 cover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=500&fit=crop'
             },
             {
-                title: 'Sunset Vibes',
+                title: 'Chill Beats',
                 artist: 'Lo-Fi Hip Hop',
                 url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
                 cover: 'https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=500&h=500&fit=crop'
             },
             {
-                title: 'Ocean Waves',
-                artist: 'Chillwave',
+                title: 'Ocean Waves Relaxation',
+                artist: 'Nature Sounds',
                 url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
                 cover: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=500&fit=crop'
             },
             {
-                title: 'Digital Paradise',
-                artist: 'Synthwave',
+                title: 'Electronic Paradise',
+                artist: 'Synthwave Artist',
                 url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
                 cover: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500&h=500&fit=crop'
+            },
+            {
+                title: 'Jazz Vibes',
+                artist: 'Smooth Jazz Collection',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+                cover: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=500&h=500&fit=crop'
+            },
+            {
+                title: 'Classical Symphony',
+                artist: 'Orchestra Collection',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+                cover: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop'
+            },
+            {
+                title: 'EDM Drop',
+                artist: 'Electronic Dance Music',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+                cover: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=500&fit=crop'
+            },
+            {
+                title: 'Indie Pop',
+                artist: 'Indie Artists',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+                cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&h=500&fit=crop'
+            },
+            {
+                title: 'Acoustic Guitar',
+                artist: 'Acoustic Musician',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+                cover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=500&fit=crop'
             }
         ];
 
         this.playlist = sampleSongs;
         this.renderPlaylist();
+        this.loadSong(0); // Load lagu pertama
     }
 
     // Upload music files
     uploadFiles(e) {
         const files = e.target.files;
+        if (files.length === 0) return;
+        
         for (let file of files) {
+            // Check if file is audio
+            if (!file.type.startsWith('audio/')) {
+                alert(`"${file.name}" bukan file audio. Silakan upload file MP3 atau audio lainnya.`);
+                continue;
+            }
+
             const url = URL.createObjectURL(file);
             const song = {
                 title: file.name.replace(/\.[^/.]+$/, ""),
@@ -102,6 +141,11 @@ class MusicPlayer {
         }
         this.renderPlaylist();
         this.fileInput.value = '';
+        
+        // Tampilkan notifikasi
+        if (files.length > 0) {
+            alert(`✅ ${files.length} lagu berhasil ditambahkan!`);
+        }
     }
 
     // Toggle play/pause
@@ -120,7 +164,7 @@ class MusicPlayer {
             }
             this.audio.play().catch(error => {
                 console.log('Playback error:', error);
-                alert('Unable to play audio. Check browser permissions.');
+                alert('⚠️ Tidak bisa memutar musik. Cek koneksi internet atau coba lagu lain.');
             });
             this.isPlaying = true;
         }
@@ -258,7 +302,7 @@ class MusicPlayer {
         this.playlist.forEach((song, index) => {
             const item = document.createElement('div');
             item.className = 'playlist-item';
-            item.innerHTML = `<i class="fas fa-music"></i> <span>${song.title}</span>`;
+            item.innerHTML = `<i class="fas fa-music"></i> <span>${song.title} - ${song.artist}</span>`;
             item.addEventListener('click', () => {
                 this.loadSong(index);
                 this.isPlaying = false;
